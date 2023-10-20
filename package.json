@@ -1,0 +1,25 @@
+{
+  "name": "create-lnote",
+  "version": "1.0.0-alpha",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "create-lnote": "./bin/create-lnote.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/littlefatcat163/lnote-cli.git"
+  },
+  "author": "littlefatcat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/littlefatcat163/lnote-cli/issues"
+  },
+  "homepage": "https://github.com/littlefatcat163/lnote-cli#readme",
+  "devDependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^9.2.11"
+  }
+}
