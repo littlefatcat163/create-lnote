@@ -5,11 +5,13 @@ module.exports = {
   roots: ['<rootDir>/src/'],
   collectCoverageFrom: [
     '**/*.ts',
+    '**/*.mts',
     '!**/node_modules/**'
   ],
   moduleFileExtensions: [
     'js',
     'ts',
+    'mts',
     'yml'
   ],
   transform: {

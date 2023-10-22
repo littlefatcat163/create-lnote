@@ -17,6 +17,6 @@
     },
     "lib": ["ES2020"],
   },
-  "include": ["src/**/*.mts", "src/**/*.d.ts"],
+  "include": ["src/**/*.mts", "src/**/*.d.ts", "types/**/*.d.ts"],
   "exclude": ["node_modules", "src/**/*.test.ts"]
 }
