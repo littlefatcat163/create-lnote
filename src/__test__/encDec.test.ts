@@ -1,5 +1,6 @@
 import { encrypt, decrypt } from '../encDec'
 import CryptoJS from 'crypto-js'
+import type { QuestionCollection } from 'inquirer'
 import pkg from '../../package.json'
 
 describe('test encrypt and decrypt', () => {
@@ -37,11 +38,24 @@ describe('test encrypt and decrypt', () => {
         expect(decodeURIComponent(decryptedMessage)).toEqual(message)
     })
 
-    test('fields', () => {
-        const fields = [
-            '请输入项目名称：',
-            '请输入版本号：'
+    test('questions', () => {
+        const questions: QuestionCollection[] = [
+            {
+                type: 'input',
+                name: 'name',
+                // 请输入项目名称：
+                message: '请输入项目名称：'
+            },
+            {
+                type: 'input',
+                name: 'version',
+                // 请输入版本号：
+                message: '请输入版本号：',
+                default: '0.1.0'
+            }
         ]
+
+        const fields = questions.map(question => JSON.stringify(question))
         const encryFields = fields.map(item => {
             return encrypt(encodeURIComponent(item), key)
         })

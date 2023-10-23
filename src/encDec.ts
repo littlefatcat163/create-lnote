@@ -1,4 +1,7 @@
+#!/usr/bin/env node
+
 import CryptoJS from 'crypto-js'
+
 /**
  * 加密
  * @param {string} str 需要加密的数据

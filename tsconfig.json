@@ -15,8 +15,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": ["ES2020"],
+    "lib": ["ES2020"]
   },
-  "include": ["src/**/*.mts", "src/**/*.d.ts", "types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "types/**/*.d.ts"],
   "exclude": ["node_modules", "src/**/*.test.ts"]
 }

@@ -1,17 +1,16 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
+export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/src/'],
   collectCoverageFrom: [
     '**/*.ts',
-    '**/*.mts',
-    '!**/node_modules/**'
+    '!**/node_modules/**',
+    '!src/create-lnote.ts'
   ],
   moduleFileExtensions: [
     'js',
     'ts',
-    'mts',
     'yml'
   ],
   transform: {
