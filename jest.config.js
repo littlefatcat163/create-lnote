@@ -15,5 +15,6 @@ export default {
   ],
   transform: {
     '\\.yml$': 'jest-transform-yaml'
-  }
-};
+  },
+  testTimeout: 10000
+}

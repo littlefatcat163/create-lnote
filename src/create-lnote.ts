@@ -19,21 +19,21 @@ log(chalk.green('hello lnote....'))
 const args = process.argv.slice(2)
 const [ appName ] = args
 
-/* function validateAppName(appName: string) {
+function validateAppName(appName: string) {
     if (!appName) {
-        log(chalk.red('请输入新目录'))
+        log(chalk.red('请输入目录名'))
         return false
     }
-    if (fs.existsSync(appName)) {
+    /* if (fse.existsSync(appName)) {
         log(chalk.red(`${appName}已经存在，请重新输入!`))
         return false;
-    }
+    } */
     return true;
 }
 
 if (!validateAppName(appName)) {
     process.exit(1);
-} */
+}
 
 type InputInfo = {
     name: string

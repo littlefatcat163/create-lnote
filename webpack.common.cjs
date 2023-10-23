@@ -24,7 +24,7 @@ module.exports = {
     externalsType: 'module',
     externals: {
         lodash: '_',
-        inquirer: 'inquirer',
+        // inquirer: 'inquirer',
         'fs-extra': 'fs-extra'
     },
     module: {
