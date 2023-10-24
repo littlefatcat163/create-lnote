@@ -1,6 +1,6 @@
 const path = require('path')
-const ShebangPlugin = require('webpack-shebang-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
     target: 'node',
@@ -14,7 +14,7 @@ module.exports = {
         clean: true,
         // libraryTarget: 'module',
         chunkFormat: 'module',
-        // module: true,
+        module: true,
         library: {
             type: 'module'
         }
@@ -24,9 +24,10 @@ module.exports = {
     },
     externalsType: 'module',
     externals: {
-        // lodash: '_',
-        // inquirer: 'inquirer',
-        // 'fs-extra': 'fs-extra'
+        lodash: 'lodash',
+        inquirer: 'inquirer',
+        'fs-extra': 'fs-extra',
+        systeminformation: 'systeminformation'
     },
     module: {
         rules: [
@@ -56,6 +57,6 @@ module.exports = {
             verbose: true,
             dry: false
         }),
-        new ShebangPlugin()
+        new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true })
     ]
 }

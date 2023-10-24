@@ -17,7 +17,6 @@ const args = process.argv.slice(2)
 const [appName] = args
 
 const wordings = createAppWording()
-
 function validateAppName(appName: string) {
     if (!appName) {
         log(chalk.red(wordings[0]))
