@@ -9,14 +9,14 @@
   ],
   "bin": {
     "create-lnote": "./bin/create-lnote.js",
-    "create-lnote2": "./dist/create-lnote.js"
+    "register-lnote": "./bin/register-lnote.js"
   },
   "scripts": {
     "clean": "npx tsc --build --clean",
     "ts": "node --loader ts-node/esm compress.ts",
     "test": "jest --coverage --silent --watchAll=false",
     "unit": "jest --watchAll",
-    "unit-spec": "jest --watchAll --verbose ./src/__test__/encDec.test.ts",
+    "unit-spec": "jest --watchAll --verbose ./src/__test__/generate.test.ts",
     "dev": "npx webpack --watch --config webpack.dev.js",
     "build": "npx webpack --config webpack.config.cjs",
     "dev-ts": "npx tsc -w",

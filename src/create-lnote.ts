@@ -14,8 +14,6 @@ const log = console.log
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-log(chalk.green('hello lnote....'))
-
 const args = process.argv.slice(2)
 const [ appName ] = args
 

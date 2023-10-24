@@ -17,12 +17,10 @@ export function encrypt(str: string, secret: string): string {
             key
         ).toString()
     }
-    // return CryptoJS.AES.encrypt(str, secret).toString()
     return encrypted
 }
 
 export function decrypt(str: string, secret: string): string {
-    // return CryptoJS.AES.decrypt(str, secret).toString(CryptoJS.enc.Utf8)
     let decrypted = str
     let key = secret
     for (let i = 0; i < cryptTime; i++) {
@@ -48,15 +46,14 @@ export function decodeStr(str: string) {
     return decodeURIComponent(decodeURIComponent(decodeURIComponent(str)))
 }
 
-export function createSecret(str?: string) {
-    const val = Date.now()
+export function createSecret(str?: string, val: number = Date.now()) {
     return (
         CryptoJS.SHA512(
             CryptoJS.SHA384(
                 CryptoJS.SHA256(
                     CryptoJS.SHA3(
                         encodeStr(
-                            `${str}+${pkg.name}/${pkg.version}-${val + 1}`
+                            `${str}+${pkg.name}@////@@@-${val + 1}`
                         )
                     ).toString() +
                         (val + 2)
@@ -92,6 +89,23 @@ export function validateLicense(input?: string): Promise<boolean|string> {
                 resolve(true)
             } else {
                 reject('无效授权码，请重新注册')
+            }
+        }, randomRange(1, 4) * 1000)
+    })
+}
+
+export function validateAdmin(input?: string): Promise<boolean|string> {
+    return new Promise((resolve, reject) => {
+        if (_.isEmpty(input)) {
+            reject('请输入管理员授权码')
+            return
+        }
+        setTimeout(() => {
+            const lic = createSecret(`${input}`, 1)
+            if (lic === input) {
+                resolve(true)
+            } else {
+                reject('无效授权码，请重新输入')
             }
         }, randomRange(1, 4) * 1000)
     })

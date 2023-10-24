@@ -5,7 +5,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
     target: 'node',
     entry: {
-        'create-lnote': './src/create-lnote.ts'
+        'create-lnote': './src/create-lnote.ts',
+        'register-lnote': './src/register-lnote.ts'
     },
     output: {
         filename: '[name].js',
@@ -23,9 +24,9 @@ module.exports = {
     },
     externalsType: 'module',
     externals: {
-        lodash: '_',
+        // lodash: '_',
         // inquirer: 'inquirer',
-        'fs-extra': 'fs-extra'
+        // 'fs-extra': 'fs-extra'
     },
     module: {
         rules: [
