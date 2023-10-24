@@ -17,7 +17,7 @@
     "test": "jest --coverage --silent --watchAll=false",
     "unit": "jest --watchAll",
     "unit-spec": "jest --watchAll --verbose ./src/__test__/generate.test.ts",
-    "dev": "npx webpack --watch --config webpack.dev.js",
+    "dev": "npx webpack --watch --config webpack.dev.cjs",
     "build": "npx webpack --config webpack.config.cjs",
     "dev-ts": "npx tsc -w",
     "build-ts": "npm run clean && npx tsc"
