@@ -1,10 +1,13 @@
 import inquirer from 'inquirer'
-import chalk from 'chalk'
-import { generateRegisterQuestions } from './generate'
+import ora from 'ora'
+import { generateRegisterQuestions, licenseKey } from './generate'
 
 async function register() {
-    const res = await inquirer.prompt(generateRegisterQuestions())
-    console.log(res)
+    await inquirer.prompt(generateRegisterQuestions())
+    const spinner = ora('registering\n').start()
+    const lic = await licenseKey()
+    console.log(lic)
+    spinner.succeed('registered successfully')
 }
 
 register()

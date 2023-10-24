@@ -26,6 +26,7 @@ module.exports = {
     externals: {
         lodash: 'lodash',
         inquirer: 'inquirer',
+        ora: 'ora',
         'fs-extra': 'fs-extra',
         systeminformation: 'systeminformation'
     },

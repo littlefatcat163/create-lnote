@@ -5,9 +5,9 @@ import inquirer from 'inquirer'
 import _ from 'lodash'
 
 // platform distro serial
-si.osInfo()
+/* si.osInfo()
     .then(s => console.log('osinfo', s.serial))
-    .catch(e => console.log(e))
+    .catch(e => console.log(e)) */
 
 // uuid sku
 /* si.system()
@@ -16,18 +16,18 @@ si.osInfo()
 
 function start() {
     console.log(chalk.bgGreenBright('请稍后，正在验证中...'))
-    const spinner = ora('Loading unicorns').start()
-
+    const spinner = ora('Loading\n').start()
+    console.log('sadfasdf')
     setTimeout(() => {
         spinner.color = 'yellow'
         spinner.text = 'Loading rainbows'
     }, 1000)
 
     setTimeout(() => {
-        // spinner.succeed('there is done')
-        spinner.fail('error')
-        console.log(chalk.bgRedBright('失败，请重新注册'))
-    }, 10000)
+        spinner.succeed()
+        // spinner.fail('error')
+        // console.log(chalk.bgRedBright('失败，请重新注册'))
+    }, 2000)
 }
 
 function validateInput(input) {
@@ -57,3 +57,5 @@ async function propmt() {
 }
 
 // propmt()
+
+start()
