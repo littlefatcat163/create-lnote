@@ -6,7 +6,8 @@ export default {
   collectCoverageFrom: [
     '**/*.ts',
     '!**/node_modules/**',
-    '!src/create-lnote.ts'
+    '!src/create-lnote.ts',
+    '!src/register-lnote.ts'
   ],
   moduleFileExtensions: [
     'js',

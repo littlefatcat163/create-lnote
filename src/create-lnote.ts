@@ -6,8 +6,7 @@ import fse from 'fs-extra'
 import path from 'path'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { generateQuestions } from './questions'
-
+import { generateCreateQuestions, createAppWording } from './generate'
 
 const log = console.log
 
@@ -15,22 +14,24 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const args = process.argv.slice(2)
-const [ appName ] = args
+const [appName] = args
+
+const wordings = createAppWording()
 
 function validateAppName(appName: string) {
     if (!appName) {
-        log(chalk.red('请输入目录名'))
+        log(chalk.red(wordings[0]))
         return false
     }
     /* if (fse.existsSync(appName)) {
         log(chalk.red(`${appName}已经存在，请重新输入!`))
         return false;
     } */
-    return true;
+    return true
 }
 
 if (!validateAppName(appName)) {
-    process.exit(1);
+    process.exit(1)
 }
 
 type InputInfo = {
@@ -38,7 +39,7 @@ type InputInfo = {
     version: string
 }
 
-function create({name, version}: InputInfo) {
+function create({ name, version }: InputInfo) {
     fse.copySync(
         path.resolve(__dirname, '../template'),
         path.resolve(process.cwd(), `${appName}`)
@@ -48,14 +49,15 @@ function create({name, version}: InputInfo) {
     const pkgJson = {
         ...JSON.parse(pkgContent),
         name,
-        version
+        version,
     }
-    fse.writeFileSync(pkgPath, JSON.stringify(pkgJson,  null, 2))
-    log(`${chalk.green(appName)} 创建成功!!!`)
+    fse.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2))
+    log(`${chalk.green(appName)} ${wordings[1]}`)
 }
 
-inquirer
-    .prompt(generateQuestions(appName))
-    .then(answers => {
-        create(answers as InputInfo)
-    })
+async function inputInfo() {
+    const answers = await inquirer.prompt(generateCreateQuestions(appName))
+    create(answers as InputInfo)
+}
+
+inputInfo()
