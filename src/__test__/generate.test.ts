@@ -70,15 +70,24 @@ describe('test generate', () => {
                 message: '请输入版本号：',
                 default: '0.1.0',
             },
+            {
+                type: 'list',
+                name: 'theme',
+                message: '请选择主题：',
+                choices: ['auto', 'light', 'dark']
+            }
         ]
         expect(generateCreateQuestions(appName)).toEqual(tqs)
     })
 
     test('createAppWording', () => {
-        const warnings = [
-            '请输入目录名',
-            '创建成功!!!'
-        ]
+        const warnings = {
+            appNameEmpty: '请输入目录名',
+            done: '创建成功!!!',
+            confName: '_config.yml',
+            confUrl: 'https://my.domain.org',
+            themeConfName: '_config.lfluid.yml'
+        }
         expect(createAppWording()).toEqual(warnings)
     })
 })
@@ -225,6 +234,12 @@ describe('target generate', () => {
                 message: '请输入版本号：',
                 default: '0.1.0',
             },
+            {
+                type: 'list',
+                name: 'theme',
+                message: '请选择主题：',
+                choices: ['auto', 'light', 'dark']
+            }
         ]
 
         const againEncrypted = encryptData(questions, secret)
@@ -250,10 +265,13 @@ describe('target generate', () => {
     /* test('create app info', () => {
         // create-lnote.ts
         const secret = createSecret()
-        const warnings = [
-            '请输入目录名',
-            '创建成功!!!'
-        ]
+        const warnings = {
+            appNameEmpty: '请输入目录名',
+            done: '创建成功!!!',
+            confName: '_config.yml',
+            confUrl: 'https://my.domain.org',
+            themeConfName: '_config.lfluid.yml'
+        }
         const againEncrypted = encryptData(warnings, secret)
         expect(againEncrypted).not.toEqual(warnings)
         console.log('create app info...')

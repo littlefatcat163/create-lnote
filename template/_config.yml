@@ -7,7 +7,7 @@ title: lNote
 subtitle: 整理分析记录你的笔记
 description: personal learn and note
 keywords:
-author: ${your}
+author: me
 language: zh-CN
 timezone: ''
 
@@ -106,7 +106,8 @@ theme: lfluid
 deploy:
   type: git
   repo: git@${your}.git
-  branch: [master]
+  branch:
+    - master
 
 minify:
   enable: true

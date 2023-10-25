@@ -3,7 +3,16 @@ import ora from 'ora'
 import chalk from 'chalk'
 import inquirer from 'inquirer'
 import _ from 'lodash'
-import clipboardy from 'clipboardy'
+import yaml from 'js-yaml'
+import fs from 'fs'
+
+function testYaml() {
+    const data = yaml.load(fs.readFileSync('./template/_config.yml', 'utf-8'))
+    // console.log(data)
+    // data.minify = { enable: false }
+    data.lnote_license = 'xxxxx-xxxxx'
+    fs.writeFileSync('my.yml', yaml.dump(data))
+}
 
 // platform distro serial
 /* si.osInfo()
@@ -28,7 +37,6 @@ function start() {
         spinner.succeed()
         // spinner.fail('error')
         // console.log(chalk.bgRedBright('失败，请重新注册'))
-        clipboardy.writeSync('98798')
     }, 2000)
 }
 
@@ -48,6 +56,12 @@ function validateInput(input) {
 async function propmt() {
     const res = await inquirer.prompt([
         {
+            type: 'list',
+            name: 'theme',
+            message: '请选择主题',
+            choices: ['auto', 'light', 'dark']
+        },
+        {
             type: 'input',
             name: 'name',
             message: '请输入项目名称：',
@@ -58,6 +72,8 @@ async function propmt() {
 
 }
 
-// propmt()
+propmt()
 
-start()
+// start()
+
+// testYaml()
