@@ -3,6 +3,7 @@ import ora from 'ora'
 import chalk from 'chalk'
 import inquirer from 'inquirer'
 import _ from 'lodash'
+import clipboardy from 'clipboardy'
 
 // platform distro serial
 /* si.osInfo()
@@ -27,6 +28,7 @@ function start() {
         spinner.succeed()
         // spinner.fail('error')
         // console.log(chalk.bgRedBright('失败，请重新注册'))
+        clipboardy.writeSync('98798')
     }, 2000)
 }
 

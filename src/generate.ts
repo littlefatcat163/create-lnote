@@ -75,8 +75,8 @@ export async function licenseKey() {
     const { serial } = await pcInfo()
     const signature = generateSignature()
     const hash = CryptoJS.SHA256(`${serial}@@0ooO..@${signature}`).toString()
-    const chunks = hash.match(/.{1,5}/g)
-    return chunks?.join('-')
+    const chunks = hash.match(/.{1,5}/g) || []
+    return chunks.join('-')
 }
 
 export function validateLicense(input?: string): Promise<boolean | string> {
