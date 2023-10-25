@@ -142,7 +142,7 @@ describe('test validateAdmin code', () => {
         )
     })
     test('code is success', async () => {
-        await expect(validateAdmin('lnote-of-me@what.question.mxb')).resolves.toBeTruthy()
+        await expect(validateAdmin('lnote-of-me@what.question.MXB@20231024')).resolves.toBeTruthy()
     })
 })
 
@@ -178,7 +178,7 @@ describe('target generate', () => {
     /* test('admin auth code', () => {
         // generateAdminAuthCode
         const secret = createSecret('what.question@littlefatcat_0.oO!Lan~mxb..()^^^$$*gmail.163.qq.com')
-        const signature = createSecret('lnote-of-me@what.question.mxb', 0)
+        const signature = createSecret('lnote-of-me@what.question.MXB@20231024', 0)
         const againEncrypted = encryptData([createSecret(signature, 0)], secret)
         expect(signature).not.toEqual(secret)
         console.log('admin is ')
