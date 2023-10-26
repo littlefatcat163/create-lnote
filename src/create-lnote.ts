@@ -59,7 +59,7 @@ function create({ lic, name, version, theme }: InputInfo) {
     const configPath = `${generatePath}/${wordings.confName}`
     const config: any = yaml.load(fse.readFileSync(configPath, 'utf-8'))
     config.url = `${wordings.confUrl}/${name}`
-    config.lnote_license = lic
+    config.lnote_licenses = [lic]
     fse.writeFileSync(configPath, yaml.dump(config))
 
     const themeConfigPath = `${generatePath}/${wordings.themeConfName}`

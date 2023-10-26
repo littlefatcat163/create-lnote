@@ -72,7 +72,12 @@ async function propmt() {
 
 }
 
-propmt()
+// propmt()
+
+console.log('undefined', _.isEmpty(undefined))
+console.log(' ', _.isEmpty(''))
+console.log('null', _.isEmpty(null))
+
 
 // start()
 

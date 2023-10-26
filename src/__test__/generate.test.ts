@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { createSecret } from '../encDec'
 import type { QuestionCollection } from 'inquirer'
 import {
@@ -8,6 +9,7 @@ import {
     generateRegisterQuestions,
     generateCreateQuestions,
     validateLicense,
+    validateLicenses,
     validateAdmin,
     licenseKey,
     createAppWording
@@ -115,6 +117,9 @@ describe('test licensekey', () => {
 describe('test validateLicense', () => {
     test('license is empty', async () => {
         await expect(validateLicense()).rejects.not.toBeUndefined()
+        await expect(validateLicense('')).rejects.not.toBeUndefined()
+        await expect(validateLicenses([])).rejects.not.toBeUndefined()
+        await expect(validateLicenses([''])).rejects.not.toBeUndefined()
     })
     test('license is invalid', async () => {
         await expect(
@@ -122,12 +127,15 @@ describe('test validateLicense', () => {
                 'b8b5fd77357b134cd01eb97df8f6e37f623b98fd8aa0393be7c648d1f2d92064ccbfcaa6cba7d602291e473a3fc9b7f77614cbf368765d0903a71ec9d8a429331698063848184'
             )
         ).rejects.not.toBeUndefined()
+
+        await expect(validateLicenses(['', 'asdf'])).rejects.not.toBeUndefined()
     })
     test('license success', async () => {
         const _pci = jest.spyOn(utils, 'pcInfo')
         _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
         const lic = await licenseKey()
         await expect(validateLicense(lic)).resolves.toBeTruthy()
+        await expect(validateLicenses(['sdf', lic])).resolves.toBeTruthy()
         _pci.mockClear()
     })
 })
@@ -147,6 +155,19 @@ describe('test validateAdmin code', () => {
 })
 
 describe('target generate', () => {
+    test('lodash isEmpty', () => {
+        expect(_.isEmpty()).toBeTruthy()
+        expect(_.isEmpty('')).toBeTruthy()
+        expect(_.isEmpty(0)).toBeTruthy()
+        expect(_.isEmpty(' ')).toBeFalsy()
+        expect(_.isEmpty({})).toBeTruthy()
+        expect(_.isEmpty(undefined)).toBeTruthy()
+        expect(_.isEmpty(null)).toBeTruthy()
+        expect(_.isEmpty([])).toBeTruthy()
+        expect(_.isEmpty([undefined])).toBeFalsy()
+        expect(_.isEmpty([''])).toBeFalsy()
+        expect(_.isEmpty([0])).toBeFalsy()
+    })
     /* test('encryptData inline keyword', () => {
         // encryptData inlineSecret
         const kws = [
