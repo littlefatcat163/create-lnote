@@ -86,6 +86,8 @@ describe('test generate', () => {
         const warnings = {
             appNameEmpty: '请输入目录名',
             done: '创建成功!!!',
+            pkgName: 'package.json',
+            confEncode: 'utf-8',
             confName: '_config.yml',
             confUrl: 'https://my.domain.org',
             themeConfName: '_config.lfluid.yml'
@@ -289,6 +291,8 @@ describe('target generate', () => {
         const warnings = {
             appNameEmpty: '请输入目录名',
             done: '创建成功!!!',
+            pkgName: 'package.json',
+            confEncode: 'utf-8',
             confName: '_config.yml',
             confUrl: 'https://my.domain.org',
             themeConfName: '_config.lfluid.yml'

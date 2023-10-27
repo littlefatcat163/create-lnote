@@ -47,8 +47,8 @@ function create({ lic, name, version, theme }: InputInfo) {
         path.resolve(__dirname, '../template'),
         generatePath
     )
-    const pkgPath = path.resolve(process.cwd(), `${appName}/package.json`)
-    const pkgContent = fse.readFileSync(pkgPath, 'utf-8')
+    const pkgPath = path.resolve(process.cwd(), `${appName}/${wordings.pkgName}`)
+    const pkgContent = fse.readFileSync(pkgPath, wordings.confEncode)
     const pkgJson = {
         ...JSON.parse(pkgContent),
         name,
@@ -57,13 +57,13 @@ function create({ lic, name, version, theme }: InputInfo) {
     fse.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2))
 
     const configPath = `${generatePath}/${wordings.confName}`
-    const config: any = yaml.load(fse.readFileSync(configPath, 'utf-8'))
+    const config: any = yaml.load(fse.readFileSync(configPath, wordings.confEncode))
     config.url = `${wordings.confUrl}/${name}`
     config.lnote_licenses = [lic]
     fse.writeFileSync(configPath, yaml.dump(config))
 
     const themeConfigPath = `${generatePath}/${wordings.themeConfName}`
-    const themeConfig: any = yaml.load(fse.readFileSync(themeConfigPath, 'utf-8'))
+    const themeConfig: any = yaml.load(fse.readFileSync(themeConfigPath, wordings.confEncode))
     themeConfig.dark_mode.default = theme
     fse.writeFileSync(themeConfigPath, yaml.dump(themeConfig))
 

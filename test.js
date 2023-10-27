@@ -8,9 +8,8 @@ import fs from 'fs'
 
 function testYaml() {
     const data = yaml.load(fs.readFileSync('./template/_config.yml', 'utf-8'))
-    // console.log(data)
-    // data.minify = { enable: false }
-    data.lnote_license = 'xxxxx-xxxxx'
+    const { lnote_licenses = [] } = data
+    data.lnote_licenses = [...lnote_licenses, 'sadfasdf']
     fs.writeFileSync('my.yml', yaml.dump(data))
 }
 
@@ -74,11 +73,8 @@ async function propmt() {
 
 // propmt()
 
-console.log('undefined', _.isEmpty(undefined))
-console.log(' ', _.isEmpty(''))
-console.log('null', _.isEmpty(null))
 
 
 // start()
 
-// testYaml()
+testYaml()
