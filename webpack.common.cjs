@@ -26,7 +26,7 @@ module.exports = {
     externals: {
         lodash: 'lodash',
         inquirer: 'inquirer',
-        ora: 'ora',
+        clipboardy: 'clipboardy',
         'fs-extra': 'fs-extra',
         systeminformation: 'systeminformation'
     },
