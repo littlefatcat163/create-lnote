@@ -27,6 +27,7 @@ module.exports = {
         lodash: 'lodash',
         inquirer: 'inquirer',
         clipboardy: 'clipboardy',
+        yaml: 'yaml',
         'fs-extra': 'fs-extra',
         systeminformation: 'systeminformation'
     },

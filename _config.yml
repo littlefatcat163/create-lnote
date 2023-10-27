@@ -1,0 +1,128 @@
+title: lNote
+subtitle: 整理分析记录你的笔记
+description: personal learn and note
+keywords: null
+author: me
+language: zh-CN
+timezone: ""
+url: https://me/share
+permalink: :year/:month/:day/:title/
+permalink_defaults: null
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - DIY/**
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ""
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: ""
+  wrap: true
+  hljs: false
+prismjs:
+  enable: false
+  preprocess: true
+  line_number: true
+  tab_replace: ""
+index_generator:
+  path: ""
+  per_page: 10
+  order_by: -date
+default_category: uncategorized
+category_map: null
+tag_map: null
+meta_generator: true
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: mtime
+per_page: 10
+pagination_dir: page
+include: null
+exclude:
+  - exclude/*
+ignore: null
+theme: lfluid
+deploy:
+  type: git
+  repo: git@me.git
+  branch:
+    - master
+minify:
+  enable: true
+  html:
+    enable: true
+    exclude: null
+  css:
+    enable: true
+    exclude:
+      - "*.min.css"
+  js:
+    enable: true
+    exclude:
+      - "*.min.js"
+  svg:
+    enable: false
+  gzip:
+    enable: true
+    include:
+      - "*.html"
+      - "*.css"
+      - "*.js"
+      - "*.txt"
+      - "*.ttf"
+      - "*.atom"
+      - "*.stl"
+      - "*.xml"
+      - "*.svg"
+      - "*.eot"
+      - "*.json"
+  brotli:
+    enable: false
+    include:
+      - "*.html"
+      - "*.css"
+      - "*.js"
+      - "*.txt"
+      - "*.ttf"
+      - "*.atom"
+      - "*.stl"
+      - "*.xml"
+      - "*.svg"
+      - "*.eot"
+      - "*.json"
+  xml:
+    enable: true
+    include:
+      - "*.xml"
+      - "!*.min.xml"
+  json:
+    enable: true
+    include:
+      - "*.json"
+      - "!*.min.json"
+lnote_licenses:
+  - 0777cf-48349-8125c-7ca1c-0816d-1dd96-feb84-ca137-cd074-348e5-d5fcc-966f2-638a
+  - 1777cf-48349-8125c-7ca1c-0816d-1dd96-feb84-ca137-cd074-348e5-d5fcc-966f2-638a
+  - 777cf-48349-8125c-7ca1c-0816d-1dd96-feb84-ca137-cd074-348e5-d5fcc-966f2-638a
+  - xxxxx-xxxxx-xxxxx-xxxxx-xxxxx
+  - xxxxx-xxxxx-xxxxx-xxxxx-xxxxx

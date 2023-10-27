@@ -2,7 +2,7 @@
 
 import inquirer from 'inquirer'
 import chalk from 'chalk'
-import yaml from 'js-yaml'
+import yaml from 'yaml'
 import fse from 'fs-extra'
 import path from 'path'
 import { dirname } from 'node:path'
@@ -57,15 +57,15 @@ function create({ lic, name, version, theme }: InputInfo) {
     fse.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2))
 
     const configPath = `${generatePath}/${wordings.confName}`
-    const config: any = yaml.load(fse.readFileSync(configPath, wordings.confEncode))
+    const config: any = yaml.parse(fse.readFileSync(configPath, wordings.confEncode))
     config.url = `${wordings.confUrl}/${name}`
     config.lnote_licenses = [lic]
-    fse.writeFileSync(configPath, yaml.dump(config))
+    fse.writeFileSync(configPath, yaml.stringify(config))
 
     const themeConfigPath = `${generatePath}/${wordings.themeConfName}`
-    const themeConfig: any = yaml.load(fse.readFileSync(themeConfigPath, wordings.confEncode))
+    const themeConfig: any = yaml.parse(fse.readFileSync(themeConfigPath, wordings.confEncode))
     themeConfig.dark_mode.default = theme
-    fse.writeFileSync(themeConfigPath, yaml.dump(themeConfig))
+    fse.writeFileSync(themeConfigPath, yaml.stringify(themeConfig))
 
     log(`${chalk.green(appName)} ${wordings.done}`)
 }
