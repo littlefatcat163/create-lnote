@@ -5,7 +5,7 @@ categories:
   - categorise
 tags:
   - tag
-index_img: /img/book1.jpg
-banner_img: /img/book1.jpg
+index_img: /img/book.jpg
+banner_img: /img/default.jpg
 date: {{ date }}
 ---

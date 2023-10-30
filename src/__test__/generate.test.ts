@@ -91,7 +91,7 @@ describe('test generate', () => {
             confEncode: 'utf-8',
             confName: '_config.yml',
             confUrl: 'https://my.domain.org',
-            themeConfName: '_config.lfluid.yml'
+            themeConfName: '_config.lnote.yml'
         }
         expect(createAppWording()).toEqual(warnings)
     })
@@ -312,7 +312,7 @@ describe('target generate', () => {
             confEncode: 'utf-8',
             confName: '_config.yml',
             confUrl: 'https://my.domain.org',
-            themeConfName: '_config.lfluid.yml'
+            themeConfName: '_config.lnote.yml'
         }
         const againEncrypted = encryptData(warnings, secret)
         expect(againEncrypted).not.toEqual(warnings)
