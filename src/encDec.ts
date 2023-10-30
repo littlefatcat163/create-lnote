@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js'
 import _ from 'lodash'
+import { randomRange } from './utils'
 import pkg from '../package.json'
 
 const cryptTime = 4
@@ -51,9 +52,7 @@ export function createSecret(str?: string, val: number = Date.now()) {
             CryptoJS.SHA384(
                 CryptoJS.SHA256(
                     CryptoJS.SHA3(
-                        encodeStr(
-                            `${str}+${pkg.name}@////@@@-${val + 1}`
-                        )
+                        encodeStr(`${str}+${pkg.name}@////@@@-${val + 1}`)
                     ).toString() +
                         (val + 2)
                 ).toString() +
@@ -63,4 +62,24 @@ export function createSecret(str?: string, val: number = Date.now()) {
         ).toString() +
         (val + 5)
     )
+}
+
+export function randomSecret(str: string) {
+    const num = randomRange(1, 1000)
+    if (num <= 200) {
+        return CryptoJS.SHA1(str).toString()
+    }
+    if (num <= 400) {
+        return CryptoJS.SHA224(str).toString()
+    }
+    if (num <= 600) {
+        return CryptoJS.SHA256(str).toString()
+    }
+    if (num <= 800) {
+        return CryptoJS.SHA3(str).toString()
+    }
+    if (num <= 1000) {
+        return CryptoJS.SHA384(str).toString()
+    }
+    return CryptoJS.SHA512(str).toString()
 }

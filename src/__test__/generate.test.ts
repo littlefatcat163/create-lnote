@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { createSecret } from '../encDec'
+import { createSecret, randomSecret } from '../encDec'
 import type { QuestionCollection } from 'inquirer'
 import {
     encryptData,
@@ -12,7 +12,8 @@ import {
     validateLicenses,
     validateAdmin,
     licenseKey,
-    createAppWording
+    createAppWording,
+    hexoConsoleEnc
 } from '../generate'
 import * as utils from '../utils'
 
@@ -93,6 +94,22 @@ describe('test generate', () => {
             themeConfName: '_config.lfluid.yml'
         }
         expect(createAppWording()).toEqual(warnings)
+    })
+
+    test('hexoConsoleEnc', () => {
+        const hexoConsole = {
+            start: {
+                cmdName:
+                    'caf2029c086a6c37067526f4566c2cdec94287cfeb766182e545142b87d0cf8543fc65086cba7f14a83116f75c58a818ce6dab67ff14c7c955f19d65050650de',
+                callName: 'server',
+            },
+            build: {
+                cmdName:
+                    '55f3709e8b4d56655adffd87260edb9e62818cce840d2e71d866d5e5943e5fa48b5e58a7078e72384c300a6201939dbc',
+                callName: 'generate',
+            },
+        }
+        expect(hexoConsoleEnc()).toEqual(hexoConsole)
     })
 })
 
@@ -300,6 +317,29 @@ describe('target generate', () => {
         const againEncrypted = encryptData(warnings, secret)
         expect(againEncrypted).not.toEqual(warnings)
         console.log('create app info...')
+        console.log(secret)
+        console.log(againEncrypted)
+    }) */
+})
+
+
+describe('target generate for hexo-theme-lnote', () => {
+    /* test('hexoConsoleEnc', () => {
+        // hexoConsoleEnc
+        const secret = createSecret('hexo-theme-lnote')
+        const hexoConsole = {
+            start: {
+                cmdName: randomSecret('hexo-lnote-start'),
+                callName: 'server'
+            },
+            build: {
+                cmdName: randomSecret('hexo-lnote-build'),
+                callName: 'generate'
+            }
+        }
+        const againEncrypted = encryptData(hexoConsole, secret)
+        expect(againEncrypted).not.toEqual(hexoConsole)
+        console.log('hexoConsoleEnc...')
         console.log(secret)
         console.log(againEncrypted)
     }) */
