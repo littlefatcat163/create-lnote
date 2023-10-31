@@ -77,7 +77,7 @@ describe('test generate', () => {
                 type: 'list',
                 name: 'theme',
                 message: '请选择主题：',
-                choices: ['auto', 'light', 'dark']
+                choices: ['light', 'dark']
             }
         ]
         expect(generateCreateQuestions(appName)).toEqual(tqs)
@@ -278,7 +278,7 @@ describe('target generate', () => {
                 type: 'list',
                 name: 'theme',
                 message: '请选择主题：',
-                choices: ['auto', 'light', 'dark']
+                choices: ['light', 'dark']
             }
         ]
 
