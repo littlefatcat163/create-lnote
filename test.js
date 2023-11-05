@@ -6,6 +6,9 @@ import _ from 'lodash'
 // import yaml from 'js-yaml'
 import yaml from 'yaml'
 import fs from 'fs'
+import path from 'path'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 /* function testYaml() {
     const data = yaml.load(fs.readFileSync('_config.yml', 'utf-8'))
@@ -18,13 +21,20 @@ import fs from 'fs'
 } */
 
 function testYaml() {
-    const data = yaml.parse(fs.readFileSync('_config.yml', 'utf-8'))
-    let { lnote_licenses } = data
+    // const data = yaml.parse(fs.readFileSync('test.yml', 'utf-8'))
+    // console.log(data)
+    // const url = new URL('.', import.meta.url)
+    
+    console.log(import.meta.url)
+    console.log(path.resolve())
+    console.log(path.parse(path.resolve('src', 'all.ts')))
+    // fs.writeFileSync(path.resolve('.cache/abc'), 'xxx1')
+    /* let { lnote_licenses } = data
     if (_.isEmpty(lnote_licenses) || !_.isArray(lnote_licenses)) {
         lnote_licenses = []
     }
     data.lnote_licenses = [...lnote_licenses, 'xxxxx-xxxxx-xxxxx-xxxxx-xxxxx']
-    fs.writeFileSync('_config.yml', yaml.stringify(data))
+    fs.writeFileSync('_config.yml', yaml.stringify(data)) */
 }
 
 // platform distro serial

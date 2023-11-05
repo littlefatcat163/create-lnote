@@ -13,7 +13,8 @@ import {
     validateAdmin,
     licenseKey,
     createAppWording,
-    hexoConsoleEnc
+    hexoConsoleEnc,
+    generateCache
 } from '../generate'
 import * as utils from '../utils'
 
@@ -110,6 +111,14 @@ describe('test generate', () => {
             },
         }
         expect(hexoConsoleEnc()).toEqual(hexoConsole)
+    })
+
+    test('generateCache', () => {
+        const warnings = {
+            cacheDirname: '.cache',
+            days: 100
+        }
+        expect(generateCache()).toEqual(warnings)
     })
 })
 
@@ -319,6 +328,25 @@ describe('target generate', () => {
         console.log('create app info...')
         console.log(secret)
         console.log(againEncrypted)
+    }) */
+    /* test('cache', () => {
+        // generateCache
+        const secret = createSecret()
+        const warnings = {
+            cacheDirname: '.cache',
+            days: 100
+        }
+        const againEncrypted = encryptData(warnings, secret)
+        expect(againEncrypted).not.toEqual(warnings)
+        console.log('cache...')
+        console.log(secret)
+        console.log(againEncrypted)
+    }) */
+    /* test('cache key', () => {
+        // generateCache
+        const secret = createSecret('lnote-project.cahce')
+        console.log('cache...')
+        console.log(secret)
     }) */
 })
 
