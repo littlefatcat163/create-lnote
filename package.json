@@ -17,7 +17,7 @@
     "ts": "node --loader ts-node/esm compress.ts",
     "test": "jest --coverage --silent --watchAll=false",
     "unit": "jest --watchAll",
-    "unit-spec": "jest --watchAll --verbose ./src/__test__/utils.test.ts --config",
+    "unit-spec": "jest --watchAll --verbose ./src/__test__/generate.test.ts --config",
     "dev": "npx webpack --watch --config webpack.dev.cjs",
     "build": "npx webpack --config webpack.config.cjs",
     "dev-ts": "npx tsc -w",

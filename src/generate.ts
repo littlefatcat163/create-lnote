@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import CryptoJS from 'crypto-js'
 import { encrypt, decrypt, encodeStr, decodeStr, createSecret } from './encDec'
-import { randomRange, pcInfo } from './utils'
+import { randomRange, pcInfo, cwdCacheVaild } from './utils'
 
 function createInlineSecret(str?: string) {
     const key =
@@ -82,6 +82,9 @@ export async function licenseKey() {
 export async function validateLicenses(
     licenses: string[]
 ): Promise<boolean | string> {
+    if (cwdCacheVaild()) {
+        return Promise.resolve(true)
+    }
     return new Promise((resolve, reject) => {
         const key =
             'b6c43db66924183321187cd47b99f2d409cd446cafd87a4d154c1479c2f8dd5b8234977f12565ca98df6c7f675783708acea99361c4161e2b67766ef8a3043e81698154294158'

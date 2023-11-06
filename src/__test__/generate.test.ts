@@ -14,7 +14,7 @@ import {
     licenseKey,
     createAppWording,
     hexoConsoleEnc,
-    generateCache
+    generateCache,
 } from '../generate'
 import * as utils from '../utils'
 
@@ -47,7 +47,7 @@ describe('test generate', () => {
                 type: 'password',
                 name: 'password',
                 message: '请管理员输入授权码：',
-                validate: validateAdmin
+                validate: validateAdmin,
             },
         ]
         expect(generateRegisterQuestions()).toEqual(questions)
@@ -78,8 +78,8 @@ describe('test generate', () => {
                 type: 'list',
                 name: 'theme',
                 message: '请选择主题：',
-                choices: ['light', 'dark']
-            }
+                choices: ['light', 'dark'],
+            },
         ]
         expect(generateCreateQuestions(appName)).toEqual(tqs)
     })
@@ -92,7 +92,7 @@ describe('test generate', () => {
             confEncode: 'utf-8',
             confName: '_config.yml',
             confUrl: 'https://my.domain.org',
-            themeConfName: '_config.lnote.yml'
+            themeConfName: '_config.lnote.yml',
         }
         expect(createAppWording()).toEqual(warnings)
     })
@@ -116,7 +116,7 @@ describe('test generate', () => {
     test('generateCache', () => {
         const warnings = {
             cacheDirname: '.cache',
-            days: 100
+            days: 100,
         }
         expect(generateCache()).toEqual(warnings)
     })
@@ -143,6 +143,7 @@ describe('test licensekey', () => {
 })
 
 describe('test validateLicense', () => {
+    const _cwdCacheVaild = jest.spyOn(utils, 'cwdCacheVaild')
     test('license is empty', async () => {
         await expect(validateLicense()).rejects.not.toBeUndefined()
         await expect(validateLicense('')).rejects.not.toBeUndefined()
@@ -159,12 +160,21 @@ describe('test validateLicense', () => {
         await expect(validateLicenses(['', 'asdf'])).rejects.not.toBeUndefined()
     })
     test('license success', async () => {
+        _cwdCacheVaild.mockReturnValue(false)
         const _pci = jest.spyOn(utils, 'pcInfo')
         _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
         const lic = await licenseKey()
         await expect(validateLicense(lic)).resolves.toBeTruthy()
         await expect(validateLicenses(['sdf', lic])).resolves.toBeTruthy()
         _pci.mockClear()
+        _cwdCacheVaild.mockClear()
+    })
+    test('license cache success', async () => {
+        _cwdCacheVaild.mockReturnValue(true)
+        const lic = 'suibian'
+        await expect(validateLicense(lic)).resolves.toBeTruthy()
+        await expect(validateLicenses(['sdf', lic])).resolves.toBeTruthy()
+        _cwdCacheVaild.mockClear()
     })
 })
 
@@ -178,7 +188,9 @@ describe('test validateAdmin code', () => {
         )
     })
     test('code is success', async () => {
-        await expect(validateAdmin('lnote-of-me@what.question.MXB@20231024')).resolves.toBeTruthy()
+        await expect(
+            validateAdmin('lnote-of-me@what.question.MXB@20231024')
+        ).resolves.toBeTruthy()
     })
 })
 
@@ -349,7 +361,6 @@ describe('target generate', () => {
         console.log(secret)
     }) */
 })
-
 
 describe('target generate for hexo-theme-lnote', () => {
     /* test('hexoConsoleEnc', () => {
