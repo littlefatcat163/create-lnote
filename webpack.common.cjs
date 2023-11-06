@@ -29,7 +29,8 @@ module.exports = {
         clipboardy: 'clipboardy',
         yaml: 'yaml',
         'fs-extra': 'fs-extra',
-        systeminformation: 'systeminformation'
+        systeminformation: 'systeminformation',
+        'this-file': 'this-file'
     },
     module: {
         rules: [
@@ -46,7 +47,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
         ]
     },

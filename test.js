@@ -9,6 +9,7 @@ import fs from 'fs'
 import path from 'path'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createContext } from 'this-file'
 
 /* function testYaml() {
     const data = yaml.load(fs.readFileSync('_config.yml', 'utf-8'))
@@ -25,9 +26,13 @@ function testYaml() {
     // console.log(data)
     // const url = new URL('.', import.meta.url)
     
-    console.log(import.meta.url)
-    console.log(path.resolve())
-    console.log(path.parse(path.resolve('src', 'all.ts')))
+    // console.log(import.meta.url)
+    /* console.log(path.resolve('../'))
+    console.log(process.cwd())
+    console.log(createEsmUtils(import.meta).dirname) */
+    const context = createContext()
+    console.log(context.dirname)
+    console.log(path.resolve(context.dirname, '../'))
     // fs.writeFileSync(path.resolve('.cache/abc'), 'xxx1')
     /* let { lnote_licenses } = data
     if (_.isEmpty(lnote_licenses) || !_.isArray(lnote_licenses)) {
