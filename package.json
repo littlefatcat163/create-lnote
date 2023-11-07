@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "files": [
-    "bin/*.js",
-    "template/**/*"
+    "bin"
   ],
   "bin": {
     "create-lnote": "./bin/create-lnote.js",
