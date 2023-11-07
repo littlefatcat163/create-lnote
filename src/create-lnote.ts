@@ -1,18 +1,12 @@
-#!/usr/bin/env node
-
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 import yaml from 'yaml'
 import fse from 'fs-extra'
 import path from 'path'
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { generateCreateQuestions, createAppWording } from './generate'
+import esm from 'lnote-esm'
 
 const log = console.log
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 
 const args = process.argv.slice(2)
 const [appName] = args
@@ -43,11 +37,12 @@ type InputInfo = {
 
 function create({ lic, name, version, theme }: InputInfo) {
     const generatePath = path.resolve(process.cwd(), `${appName}`)
-    fse.copySync(
-        path.resolve(__dirname, '../template'),
-        generatePath
+    const { templatePath } = esm()
+    fse.copySync(templatePath, generatePath)
+    const pkgPath = path.resolve(
+        process.cwd(),
+        `${appName}/${wordings.pkgName}`
     )
-    const pkgPath = path.resolve(process.cwd(), `${appName}/${wordings.pkgName}`)
     const pkgContent = fse.readFileSync(pkgPath, wordings.confEncode)
     const pkgJson = {
         ...JSON.parse(pkgContent),
@@ -57,13 +52,17 @@ function create({ lic, name, version, theme }: InputInfo) {
     fse.writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2))
 
     const configPath = `${generatePath}/${wordings.confName}`
-    const config: any = yaml.parse(fse.readFileSync(configPath, wordings.confEncode))
+    const config: any = yaml.parse(
+        fse.readFileSync(configPath, wordings.confEncode)
+    )
     config.url = `${wordings.confUrl}/${name}`
     config.lnote_licenses = [lic]
     fse.writeFileSync(configPath, yaml.stringify(config))
 
     const themeConfigPath = `${generatePath}/${wordings.themeConfName}`
-    const themeConfig: any = yaml.parse(fse.readFileSync(themeConfigPath, wordings.confEncode))
+    const themeConfig: any = yaml.parse(
+        fse.readFileSync(themeConfigPath, wordings.confEncode)
+    )
     themeConfig.dark_mode.default = theme
     fse.writeFileSync(themeConfigPath, yaml.stringify(themeConfig))
 

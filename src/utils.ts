@@ -1,6 +1,4 @@
 import si from 'systeminformation'
-import path from 'path'
-import fs from 'fs'
 import { generateCache, encryptData, decryptData } from './generate'
 import { getCache, setCache } from 'lnote-esm'
 
