@@ -2,7 +2,7 @@ import si from 'systeminformation'
 import path from 'path'
 import fs from 'fs'
 import { generateCache, encryptData, decryptData } from './generate'
-import { runtimePaths } from './all'
+import { getCache, setCache } from 'lnote-esm'
 
 export function randomRange(min: number = 1, max: number = 10) {
     return Math.floor(Math.random() * (max - min)) + 1
@@ -21,19 +21,9 @@ type CacheCwd = {
     cacheDays: number
 }
 
-export function cwdCachePaths() {
-    const { workingDirname, rootDirname } = runtimePaths()
-    const { cacheDirname } = generateCache()
-    return [rootDirname, cacheDirname, workingDirname]
-}
-
 export function cwdCacheVaild() {
-    const cacheFile = path.resolve(...cwdCachePaths())
-    if (!fs.existsSync(cacheFile)) {
-        return false
-    }
     try {
-        const res: CacheCwd = decryptData(getCache(cacheFile), CACHE_SECRET)
+        const res: CacheCwd = decryptData(getCache(), CACHE_SECRET)
         const { cacheDays, lastCheckTime } = res
         const cacheTime = cacheDays * 24 * 60 * 60 * 1000
         if (Date.now() - lastCheckTime <= cacheTime) {
@@ -51,20 +41,7 @@ export function updateCwdCache(beforeDays = 0) {
         lastCheckTime: Date.now() - beforeDays * 24 * 60 * 60 * 1000,
         cacheDays: days,
     }
-    const paths = cwdCachePaths()
-    const cachePaths = [...paths]
-    cachePaths.pop()
-    const cacheDir = path.resolve(...cachePaths)
-    if (!fs.existsSync(cacheDir)) {
-        fs.mkdirSync(cacheDir)
-    }
-    setCache(path.resolve(...paths), encryptData(data, CACHE_SECRET))
-}
-
-export function getCache(cachePath: string) {
-    return fs.readFileSync(cachePath, 'utf-8')
-}
-
-export function setCache(cachePath: string, value: string) {
-    fs.writeFileSync(cachePath, value)
+    const value = encryptData(data, CACHE_SECRET)
+    setCache(value)
+    return value
 }

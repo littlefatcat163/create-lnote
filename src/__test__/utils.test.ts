@@ -1,38 +1,32 @@
-import * as all from '../all'
+import * as esm from 'lnote-esm'
 import { cwdCacheVaild, updateCwdCache } from '../utils'
 
 describe('test cwd cache', () => {
-    const runtimePaths = jest.spyOn(all, 'runtimePaths')
-    test('empty', () => {
-        runtimePaths.mockReturnValueOnce({
-            workingDirname: '_my',
-            rootDirname: ''
+    const getCache = jest.spyOn(esm, 'getCache')
+    test('cache error not found', () => {
+        getCache.mockImplementationOnce(() => {
+            throw new Error('not found')
         })
+        expect(cwdCacheVaild()).toBeFalsy()
+    })
+    test('cache empty', () => {
+        getCache.mockReturnValueOnce('')
         expect(cwdCacheVaild()).toBeFalsy()
     })
     test('the latest', () => {
-        runtimePaths.mockReturnValue({
-            workingDirname: 'latest',
-            rootDirname: ''
-        })
-        expect(updateCwdCache()).toBeUndefined()
+        const latest = updateCwdCache()
+        getCache.mockReturnValueOnce(latest)
         expect(cwdCacheVaild()).toBeTruthy()
     })
     test('99days valid success', () => {
-        runtimePaths.mockReturnValue({
-            workingDirname: 'near',
-            rootDirname: ''
-        })
-        expect(updateCwdCache(99)).toBeUndefined()
+        const latest = updateCwdCache(99)
+        getCache.mockReturnValueOnce(latest)
         expect(cwdCacheVaild()).toBeTruthy()
     })
     test('100days valid fail', () => {
-        runtimePaths.mockReturnValue({
-            workingDirname: 'out',
-            rootDirname: ''
-        })
-        expect(updateCwdCache(100)).toBeUndefined()
+        const latest = updateCwdCache(100)
+        getCache.mockReturnValueOnce(latest)
         expect(cwdCacheVaild()).toBeFalsy()
-        runtimePaths.mockClear()
+        getCache.mockClear()
     })
 })

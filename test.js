@@ -7,9 +7,10 @@ import _ from 'lodash'
 import yaml from 'yaml'
 import fs from 'fs'
 import path from 'path'
-import { dirname } from 'node:path'
+// import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createContext } from 'this-file'
+import {getCache, setCache} from 'lnote-esm'
 
 /* function testYaml() {
     const data = yaml.load(fs.readFileSync('_config.yml', 'utf-8'))
@@ -33,6 +34,9 @@ function testYaml() {
     const context = createContext()
     console.log(context.dirname)
     console.log(path.resolve(context.dirname, '../'))
+    // console.log(esm())
+    console.log(setCache('xxx'))
+    console.log(getCache())
     // fs.writeFileSync(path.resolve('.cache/abc'), 'xxx1')
     /* let { lnote_licenses } = data
     if (_.isEmpty(lnote_licenses) || !_.isArray(lnote_licenses)) {

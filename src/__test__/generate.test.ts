@@ -145,7 +145,7 @@ describe('test licensekey', () => {
 describe('test validateLicense', () => {
     const _cwdCacheVaild = jest.spyOn(utils, 'cwdCacheVaild')
     const _updateCwdCache = jest.spyOn(utils, 'updateCwdCache')
-    _updateCwdCache.mockReturnValue(undefined)
+    _updateCwdCache.mockReturnValue('')
     test('license is empty', async () => {
         _cwdCacheVaild.mockReturnValue(false)
         await expect(validateLicense()).rejects.not.toBeUndefined()
