@@ -80,9 +80,10 @@ export async function licenseKey() {
 }
 
 export async function validateLicenses(
-    licenses: string[]
+    licenses: string[],
+    enableCache = true
 ): Promise<boolean | string> {
-    if (cwdCacheVaild()) {
+    if (enableCache && cwdCacheVaild()) {
         return Promise.resolve(true)
     }
     return new Promise((resolve, reject) => {
@@ -101,7 +102,9 @@ export async function validateLicenses(
         setTimeout(async () => {
             const lic = await licenseKey()
             if (licenses.some((item) => item === lic)) {
-                updateCwdCache()
+                if (enableCache) {
+                    updateCwdCache()
+                }
                 resolve(true)
             } else {
                 reject(arr[1])
@@ -111,7 +114,7 @@ export async function validateLicenses(
 }
 
 export function validateLicense(input?: string) {
-    return validateLicenses([input!])
+    return validateLicenses([input!], false)
 }
 
 export function validateAdmin(input?: string): Promise<boolean | string> {
