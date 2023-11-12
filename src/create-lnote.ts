@@ -63,7 +63,7 @@ function create({ lic, name, version, theme }: InputInfo) {
     const themeConfig: any = yaml.parse(
         fse.readFileSync(themeConfigPath, wordings.confEncode)
     )
-    themeConfig.dark_mode.default = theme
+    themeConfig.dark_mode = theme
     fse.writeFileSync(themeConfigPath, yaml.stringify(themeConfig))
 
     log(`${chalk.green(appName)} ${wordings.done}`)

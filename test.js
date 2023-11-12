@@ -9,7 +9,6 @@ import fs from 'fs'
 import path from 'path'
 // import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createContext } from 'this-file'
 import {getCache, setCache} from 'lnote-esm'
 
 /* function testYaml() {
@@ -23,20 +22,15 @@ import {getCache, setCache} from 'lnote-esm'
 } */
 
 function testYaml() {
-    // const data = yaml.parse(fs.readFileSync('test.yml', 'utf-8'))
-    // console.log(data)
+    const data = yaml.parse(fs.readFileSync('test.yml', 'utf-8'))
+    console.log(data)
     // const url = new URL('.', import.meta.url)
     
     // console.log(import.meta.url)
     /* console.log(path.resolve('../'))
     console.log(process.cwd())
     console.log(createEsmUtils(import.meta).dirname) */
-    const context = createContext()
-    console.log(context.dirname)
-    console.log(path.resolve(context.dirname, '../'))
     // console.log(esm())
-    console.log(setCache('xxx'))
-    console.log(getCache())
     // fs.writeFileSync(path.resolve('.cache/abc'), 'xxx1')
     /* let { lnote_licenses } = data
     if (_.isEmpty(lnote_licenses) || !_.isArray(lnote_licenses)) {
