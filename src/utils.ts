@@ -43,3 +43,7 @@ export function updateCwdCache(beforeDays = 0) {
     setCache(value)
     return value
 }
+
+export function validateLicenseFormat(value: string) {
+    return /^([a-zA-Z0-9]{5}-){1,}[a-zA-Z0-9]{1,5}$/.test(value)
+}

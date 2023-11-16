@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import CryptoJS from 'crypto-js'
 import { encrypt, decrypt, encodeStr, decodeStr, createSecret } from './encDec'
-import { randomRange, pcInfo, cwdCacheVaild, updateCwdCache } from './utils'
+import { randomRange, pcInfo, validateLicenseFormat } from './utils'
 
 function createInlineSecret(str?: string) {
     const key =
@@ -79,14 +79,19 @@ export async function licenseKey() {
     return chunks.join('-')
 }
 
+export async function isValidLicenses(licenses: string[]) {
+    const lic = await licenseKey()
+    if (licenses.some((item) => item === lic)) {
+        return Promise.resolve()
+    }
+    return Promise.reject()
+}
+
 export async function validateLicenses(
     licenses: string[],
-    enableCache = true
+    vite: boolean = false
 ): Promise<boolean | string> {
-    if (enableCache && cwdCacheVaild()) {
-        return Promise.resolve(true)
-    }
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         const key =
             'b6c43db66924183321187cd47b99f2d409cd446cafd87a4d154c1479c2f8dd5b8234977f12565ca98df6c7f675783708acea99361c4161e2b67766ef8a3043e81698154294158'
         const encrypted =
@@ -94,27 +99,38 @@ export async function validateLicenses(
         const arr = decryptData(encrypted, key) as string[]
         if (
             _.isEmpty(licenses) ||
-            _.some(licenses, (item) => _.isEmpty(item))
+            _.some(licenses, (item) => !validateLicenseFormat(item))
         ) {
             reject(arr[0])
             return
         }
-        setTimeout(async () => {
-            const lic = await licenseKey()
-            if (licenses.some((item) => item === lic)) {
-                if (enableCache) {
-                    updateCwdCache()
-                }
-                resolve(true)
-            } else {
+
+        let hasErr = false
+        try {
+            await isValidLicenses(licenses)
+        } catch (error) {
+            hasErr = true
+        }
+
+        function done() {
+            if (hasErr) {
                 reject(arr[1])
+            } else {
+                resolve(true)
             }
-        }, randomRange(1, 2) * 1000)
+        }
+
+        if (vite) {
+            done()
+            return
+        }
+
+        setTimeout(done, randomRange(1, 2) * 1000)
     })
 }
 
 export function validateLicense(input?: string) {
-    return validateLicenses([input!], false)
+    return validateLicenses([input!])
 }
 
 export function validateAdmin(input?: string): Promise<boolean | string> {

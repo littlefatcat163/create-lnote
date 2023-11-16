@@ -1,12 +1,13 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack')
+const WebpackObfuscator = require('webpack-obfuscator')
 
 module.exports = {
     target: 'node',
     entry: {
         'create-lnote': './src/create-lnote.ts',
-        'register-lnote': './src/register-lnote.ts'
+        'register-lnote': './src/register-lnote.ts',
     },
     output: {
         filename: '[name].js',
@@ -16,11 +17,11 @@ module.exports = {
         chunkFormat: 'module',
         module: true,
         library: {
-            type: 'module'
-        }
+            type: 'module',
+        },
     },
     experiments: {
-        outputModule: true
+        outputModule: true,
     },
     externalsType: 'module',
     externals: {
@@ -30,7 +31,7 @@ module.exports = {
         yaml: 'yaml',
         'fs-extra': 'fs-extra',
         systeminformation: 'systeminformation',
-        'lnote-esm': 'lnote-esm'
+        'lnote-esm': 'lnote-esm',
     },
     module: {
         rules: [
@@ -49,7 +50,7 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
-        ]
+        ],
     },
     resolve: {
         extensions: ['.ts', '.js'],
@@ -58,8 +59,16 @@ module.exports = {
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ['dist/**/*'],
             verbose: true,
-            dry: false
+            dry: false,
         }),
-        new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true })
-    ]
+        new webpack.BannerPlugin({ banner: '#!/usr/bin/env node', raw: true }),
+        new WebpackObfuscator(
+            {
+                trasnformObjectKeys: true,
+                rotateStringArray: true,
+                roatetStringArrayEnable: true,
+            },
+            ['excluded_bundle_name.js']
+        ),
+    ],
 }

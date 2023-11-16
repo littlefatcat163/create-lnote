@@ -8,6 +8,7 @@ import {
     generateAdminAuthCode,
     generateRegisterQuestions,
     generateCreateQuestions,
+    isValidLicenses,
     validateLicense,
     validateLicenses,
     validateAdmin,
@@ -142,6 +143,24 @@ describe('test licensekey', () => {
     })
 })
 
+describe('test isValidLicenses', () => {
+    test('success', async () => {
+        const _pci = jest.spyOn(utils, 'pcInfo')
+        _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
+        const lic = await licenseKey()
+        await expect(isValidLicenses([lic])).resolves.toBeUndefined()
+        await expect(isValidLicenses(['x', lic])).resolves.toBeUndefined()
+        _pci.mockClear()
+    })
+    test('fail', async () => {
+        const _pci = jest.spyOn(utils, 'pcInfo')
+        _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
+        await expect(isValidLicenses([])).rejects.toBeUndefined()
+        await expect(isValidLicenses(['x'])).rejects.toBeUndefined()
+        _pci.mockClear()
+    })
+})
+
 describe('test validateLicense', () => {
     const _cwdCacheVaild = jest.spyOn(utils, 'cwdCacheVaild')
     const _updateCwdCache = jest.spyOn(utils, 'updateCwdCache')
@@ -169,17 +188,34 @@ describe('test validateLicense', () => {
         _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
         const lic = await licenseKey()
         await expect(validateLicense(lic)).resolves.toBeTruthy()
-        await expect(validateLicenses(['sdf', lic])).resolves.toBeTruthy()
+        await expect(validateLicenses(['xxxxx-xxxxx-xxx', lic])).resolves.toBeTruthy()
         _pci.mockClear()
         _cwdCacheVaild.mockClear()
     })
-    test('license cache success', async () => {
-        _cwdCacheVaild.mockReturnValue(true)
-        const lic = 'suibian'
-        await expect(validateLicense(lic)).resolves.toBeTruthy()
-        await expect(validateLicenses(['sdf', lic])).resolves.toBeTruthy()
+    test('license success and vite', async () => {
+        _cwdCacheVaild.mockReturnValue(false)
+        const _pci = jest.spyOn(utils, 'pcInfo')
+        _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
+        const lic = await licenseKey()
+        await expect(validateLicenses(['xxxxx-xxxxx-xxx', lic], true)).resolves.toBeTruthy()
+        _pci.mockClear()
         _cwdCacheVaild.mockClear()
     })
+    test('license fail and vite', async () => {
+        _cwdCacheVaild.mockReturnValue(false)
+        const _pci = jest.spyOn(utils, 'pcInfo')
+        _pci.mockResolvedValue({ serial: '00330-X0000-00000-XXXXX' })
+        await expect(validateLicenses(['xxxxx-xxxxx-xxx', '00330-X0000'], false)).rejects.not.toBeUndefined()
+        _pci.mockClear()
+        _cwdCacheVaild.mockClear()
+    })
+    /* test('license cache success', async () => {
+        _cwdCacheVaild.mockReturnValue(true)
+        const lic = '00330-X0000-00000-XXX'
+        await expect(validateLicense(lic)).resolves.toBeTruthy()
+        await expect(validateLicenses(['asd2x-ccxxx-2', lic])).resolves.toBeTruthy()
+        _cwdCacheVaild.mockClear()
+    }) */
 })
 
 describe('test validateAdmin code', () => {
