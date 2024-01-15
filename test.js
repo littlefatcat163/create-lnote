@@ -104,4 +104,6 @@ async function propmt() {
 
 // start()
 
-testYaml()
+// testYaml()
+
+console.log(_.random(200, 1200))

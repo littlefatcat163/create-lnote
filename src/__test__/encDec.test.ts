@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js'
 import { encrypt, decrypt, encodeStr, decodeStr, createSecret, randomSecret } from '../encDec'
 import * as utils from '../utils'
+import _ from 'lodash'
 
 describe('test encrypt and decrypt', () => {
     test('the same secret', () => {
@@ -53,7 +54,7 @@ describe('test encode and decode', () => {
 
 
 describe('test randomSecret', () => {
-    const _rdm = jest.spyOn(utils, 'randomRange')
+    const _rdm = jest.spyOn(_, 'random')
     
     test('<= 200', () => {
         const msg = 'msg'

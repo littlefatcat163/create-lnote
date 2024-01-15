@@ -1,6 +1,5 @@
 import CryptoJS from 'crypto-js'
 import _ from 'lodash'
-import { randomRange } from './utils'
 import pkg from '../package.json'
 
 const cryptTime = 4
@@ -65,7 +64,7 @@ export function createSecret(str?: string, val: number = Date.now()) {
 }
 
 export function randomSecret(str: string) {
-    const num = randomRange(1, 1000)
+    const num = _.random(1000)
     if (num <= 200) {
         return CryptoJS.SHA1(str).toString()
     }

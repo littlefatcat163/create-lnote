@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import CryptoJS from 'crypto-js'
 import { encrypt, decrypt, encodeStr, decodeStr, createSecret } from './encDec'
-import { randomRange, pcInfo, validateLicenseFormat } from './utils'
+import { pcInfo, validateLicenseFormat } from './utils'
 
 function createInlineSecret(str?: string) {
     const key =
@@ -125,7 +125,7 @@ export async function validateLicenses(
             return
         }
 
-        setTimeout(done, randomRange(1, 2) * 1000)
+        setTimeout(done, _.random(200, 1200))
     })
 }
 
@@ -152,7 +152,7 @@ export function validateAdmin(input?: string): Promise<boolean | string> {
             } else {
                 reject(arr[1])
             }
-        }, randomRange(1, 2) * 1000)
+        }, _.random(800, 1800))
     })
 }
 
